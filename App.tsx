@@ -1,117 +1,123 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
+import React, {useState} from 'react';
+import {View, Text, Image, TouchableOpacity, StyleSheet} from 'react-native';
 
-import React from 'react';
-import type {PropsWithChildren} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+function App() {
+  // Estado para controlar a visibilidade do cartão
+  const [visible, setVisible] = useState(true);
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+  // Função para alternar a visibilidade
+  const toggleVisibility = () => {
+    setVisible(!visible);
+  };
 
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
-
-function Section({children, title}: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
   return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
+    <View style={styles.container}>
+      <View style={styles.header}>
+        <Text style={styles.headerTitle}>Serra Junior Engenharia</Text>
+      </View>
+
+      <View style={styles.main}>
+        {visible && (
+          <View style={styles.card}>
+            <Image
+              style={styles.logoImg}
+              source={require('./src/logoserra.png')}
+            />
+            <Text style={styles.cardEmail}>https://www.serrajr.eng.br/</Text>
+          </View>
+        )}
+        <TouchableOpacity 
+          style={styles.botao}
+          onPress={toggleVisibility} // Evento para alternar a visibilidade
+        >
+          <Text style={styles.botaoTexto}>{visible ? 'Mostrar / Esconder' : 'Mostrar / Esconder'}</Text>
+        </TouchableOpacity>
+      </View>
+
+      <View style={styles.footer}>
+        <Text style={styles.footerTitle}>
+          COPYRIGHT Ⓒ 2024 - SERRA JUNIOR ENGENHARIA
+        </Text>
+      </View>
     </View>
   );
 }
 
-function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
-}
-
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  container: {
+    flex: 1,
+    backgroundColor: '#001830',
+    justifyContent: 'space-between',
   },
-  sectionTitle: {
+
+  header: {
+    flex: 0.125,
+    backgroundColor: '#FF6600',
+    textAlign: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  headerTitle: {
+    color: '#FFF',
     fontSize: 24,
-    fontWeight: '600',
+    fontWeight: 'bold',
   },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
+
+  main: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  highlight: {
-    fontWeight: '700',
+
+  card: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#FFF',
+    width: 300,
+    borderRadius: 20,
+  },
+
+  logoImg: {
+    margin: 30,
+    width: 100,
+    height: 100,
+  },
+
+  cardEmail: {
+    color: '#001830',
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginBottom: 30,
+  },
+
+  botao:{
+    marginTop: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#FFF',
+    width: 300,
+    height: 50,
+    borderRadius: 15,
+  },
+
+  botaoTexto: {
+    color: '#001830',
+    fontSize: 19,
+    fontWeight: 'bold',
+  },
+
+  footer: {
+    flex: 0.125,
+    backgroundColor: '#FF6600',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  footerTitle: {
+    color: '#FFF',
+    fontSize: 12,
+    textAlign: 'center',
   },
 });
 
